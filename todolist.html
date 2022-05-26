@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8" />
+		<title>todolist</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+
+			body {
+				background: #dfe1e1;
+				/* box-sizing: border-box; */
+			}
+			ul {
+				list-style: none;
+			}
+
+			/*top nav*/
+			.nav {
+				width: 100%;
+				height: 50px;
+				background: rgba(0, 0, 0, 0.7);
+			}
+			.topNav {
+				width: 600px;
+				height: 26px;
+				color: white;
+				margin: auto;
+				/*line-height: 50px;*/
+				padding-top: 12px;
+				padding-bottom: 12px;
+			}
+			.topNav h3 {
+				float: left;
+			}
+			.topNav input {
+				text-indent: 1em;
+				float: right;
+				width: 380px;
+				height: 24px;
+				box-shadow: 1px 1px 10px #dfe1e1 inset;
+				border-radius: 10px;
+			}
+
+			.topNav input:focus {
+				border: 1px solid #f8f8f8;
+			}
+
+			/*todo list*/
+			.todo {
+				width: 100%;
+				height: 100%;
+			}
+			.lists {
+				width: 600px;
+				height: 100%;
+				padding: 20px 0 10px 0;
+				margin: auto;
+			}
+			.todoNav {
+				width: 600px;
+				height: 30px;
+			}
+			.title1 {
+				width: 300px;
+				height: 18px;
+				font-size: 18px;
+				font-weight: bold;
+				color: black;
+				float: left;
+				line-height: 18px;
+				/*    margin-top: 20px;
+    margin-bottom: 10px;*/
+			}
+			.todoCount {
+				width: 18px;
+				height: 18px;
+				border-radius: 50%;
+				font-size: 13px;
+				font-weight: bold;
+				color: black;
+				float: right;
+				text-align: center;
+				line-height: 18px;
+				background: #82b5b2;
+				/*margin-top: 20px;
+    margin-bottom: 10px;*/
+			}
+			.todoList {
+				width: 600px;
+			}
+			.todoList ul {
+				width: 600px;
+				margin: auto;
+			}
+			.todoList li {
+				width: 587px;
+				height: 30px;
+				padding: 0 5px;
+				margin: 5px 0;
+				background: white;
+				line-height: 30px;
+				border-top-left-radius: 5px;
+				border-bottom-left-radius: 5px;
+				border-left: 3px solid #0b423e;
+				position: relative;
+			}
+
+			/*done list*/
+			.done {
+				width: 100%;
+				height: 100%;
+			}
+			.lists1 {
+				width: 600px;
+				height: 100%;
+				padding: 20px 0 10px 0;
+				margin: auto;
+			}
+			.doneNav {
+				width: 600px;
+				height: 30px;
+			}
+			.title2 {
+				width: 300px;
+				height: 18px;
+				font-size: 18px;
+				font-weight: bold;
+				color: black;
+				float: left;
+				line-height: 18px;
+				/*margin-top: 20px;
+    margin-bottom: 10px;*/
+			}
+			.doneCount {
+				width: 18px;
+				height: 18px;
+				border-radius: 50%;
+				font-size: 13px;
+				font-weight: bold;
+				color: black;
+				float: right;
+				text-align: center;
+				line-height: 18px;
+				background: #82b5b2;
+				/*margin-top: 20px;
+    margin-bottom: 10px;*/
+			}
+			.doneList {
+				width: 600px;
+			}
+			.doneList ul {
+				width: 600px;
+				margin: auto;
+			}
+			.doneList li {
+				width: 587px;
+				height: 30px;
+				padding: 0 5px;
+				margin: 5px 0;
+				background: white;
+				line-height: 30px;
+				border-top-left-radius: 5px;
+				border-bottom-left-radius: 5px;
+				border-left: 3px solid #0b423e;
+				line-height: 30px;
+				position: relative;
+			}
+
+			/*site foot*/
+			.siteFoot {
+				width: 100%;
+				height: 100%;
+			}
+			.foot {
+				width: 600px;
+				height: 30px;
+				margin: auto;
+				text-align: center;
+				line-height: 30px;
+			}
+
+			.content {
+				width: 500px;
+				height: 27px;
+				color: black;
+				font-size: 15px;
+				background: white;
+				line-height: 27px;
+				border: none;
+			}
+			.content:hover {
+				border: 1px solid skyblue;
+			}
+			.listSpan {
+				width: 18px;
+				height: 18px;
+				border-radius: 50%;
+				font-size: 13px;
+				font-weight: bold;
+				color: black;
+				float: right;
+				text-align: center;
+				line-height: 18px;
+				background: #82b5b2;
+				margin-top: 6px;
+			}
+			.listSpan:hover {
+				cursor: pointer;
+			}
+			.checkBox {
+				width: 18px;
+				height: 18px;
+				margin-top: 5px;
+				margin-right: 10px;
+				margin-left: 5px;
+			}
+
+			/* 以下自己写的 */
+			#todoList span {
+				cursor: pointer;
+			}
+			#todoList input.list-content {
+				width: 510px;
+				height: 17px;
+				margin-left: 5px;
+				border: 1px solid #fff;
+				overflow: hidden;
+			}
+			#todoList input.list-content:hover {
+				border: 1px solid #82b5b2;
+				border-radius: 3px;
+			}
+			#todoList input.list-content:focus {
+				outline: none;
+			}
+			#todoList .del {
+				margin-left: 15px;
+				width: 20px;
+				height: 20px;
+				background-color: #7db0b1;
+				display: block;
+				position: absolute;
+				right: 5px;
+				top: 5px;
+				border-radius: 10px;
+				font-size: 5px;
+				line-height: 20px;
+				text-align: center;
+				font-weight: bolder;
+			}
+			#todoList .isDo {
+				margin-left: 5px;
+				border: 1px solid #c0c0c0;
+				padding: 0 5px;
+				color: #fff;
+			}
+			#todoList .checked {
+				background-color: #0072ff;
+			}
+			#todoList .isDo:hover {
+				border: 1px solid #a3a3a3;
+			}
+
+			#doneList span {
+				cursor: pointer;
+			}
+			#doneList input.list-content {
+				width: 510px;
+				height: 17px;
+				margin-left: 5px;
+				border: 1px solid #fff;
+				overflow: hidden;
+			}
+			#doneList input.list-content:hover {
+				border: 1px solid #82b5b2;
+				border-radius: 3px;
+			}
+			#doneList input.list-content:focus {
+				outline: none;
+			}
+			#doneList .del {
+				margin-left: 15px;
+				width: 20px;
+				height: 20px;
+				background-color: #7db0b1;
+				display: block;
+				position: absolute;
+				right: 5px;
+				top: 5px;
+				border-radius: 10px;
+				font-size: 5px;
+				line-height: 20px;
+				text-align: center;
+				font-weight: bolder;
+			}
+			#doneList .isDo {
+				margin-left: 5px;
+				border: 1px solid #c0c0c0;
+				padding: 0 5px;
+				color: #fff;
+			}
+			#doneList .checked {
+				background-color: #0072ff;
+			}
+			#doneList .isDo:hover {
+				border: 1px solid #a3a3a3;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="nav">
+				<div class="topNav">
+					<h3>TodoList</h3>
+					<form id="form" action="javascript:postaction()" method="post">
+						<input
+							type="text"
+							name="todoList"
+							id="inputTodo"
+							placeholder="输入内容"
+							required="required"
+							autocomplete="off"
+						/>
+					</form>
+				</div>
+			</div>
+			<div class="todo">
+				<div class="lists">
+					<div class="todoNav" id="todoNav">
+						<span class="title1">正在进行</span>
+						<span class="todoCount" id="todoCount">0</span>
+					</div>
+					<div class="todoList">
+						<ul id="todoList"></ul>
+					</div>
+				</div>
+			</div>
+			<div class="done">
+				<div class="lists1">
+					<div class="doneNav">
+						<span class="title2">已经完成</span>
+						<span class="doneCount" id="doneCount">0</span>
+					</div>
+					<div class="doneList">
+						<ul id="doneList"></ul>
+					</div>
+				</div>
+			</div>
+			<div class="siteFoot">
+				<div class="foot">
+					<p>
+						Copyright © 2014 todolist.cn
+						<a style="color: #8c9796;" href="javascript:clear()">clear</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script>
+		const input = document.getElementById("inputTodo");
+		const todoList = document.getElementById("todoList");
+		const doneList = document.getElementById("doneList");
+		const todoCount = document.getElementById("todoCount");
+		const doneCount = document.getElementById("doneCount");
+
+		console.log(JSON.parse(localStorage.getItem("todo")));
+
+		const init = function () {
+			for (const iterator of Object.values(
+				JSON.parse(localStorage.getItem("todo"))
+			)) {
+				createNew(iterator, (where = "todo"));
+			}
+
+			for (const iterator of Object.values(
+				JSON.parse(localStorage.getItem("done"))
+			)) {
+				createNew(iterator, (where = "done"));
+			}
+			count();
+		};
+
+		const createNew = function (value, where = "todo") {
+			const li = document.createElement("li");
+
+			const spanL = document.createElement("span");
+			spanL.innerText = "√";
+			if (where == "todo") {
+				spanL.className = "isDo";
+				spanL.setAttribute("ischecked", "");
+			} else {
+				spanL.className = "isDo checked";
+				spanL.setAttribute("ischecked", "checked");
+			}
+
+			const listContent = document.createElement("input");
+			listContent.value = value;
+			listContent.className = "list-content";
+			listContent.type = "text";
+
+			const spanR = document.createElement("span");
+			spanR.innerText = "-";
+			spanR.className = "del";
+
+			li.appendChild(spanL);
+			li.appendChild(listContent);
+			li.appendChild(spanR);
+
+			if (where == "todo") {
+				todoList.appendChild(li);
+			} else {
+				doneList.appendChild(li);
+			}
+		};
+
+		const postaction = function () {
+			console.log(input.value);
+
+			createNew(input.value);
+
+			input.value = "";
+
+			count();
+			write();
+		};
+
+		const check = function (e) {
+			const element = e.target;
+
+			if (element.getAttribute("ischecked") == "") {
+				todoList.removeChild(e.target.parentNode);
+				doneList.appendChild(e.target.parentNode);
+				e.target.classList.add("checked");
+				e.target.setAttribute("ischecked", "checked");
+				count();
+				write();
+				return;
+			}
+
+			if (element.getAttribute("ischecked") == "checked") {
+				doneList.removeChild(e.target.parentNode);
+				todoList.appendChild(e.target.parentNode);
+				e.target.classList.remove("checked");
+				e.target.setAttribute("ischecked", "");
+				count();
+				write();
+				return;
+			}
+
+			if (element.className == "del") {
+				this.removeChild(e.target.parentNode);
+				count();
+				write();
+			}
+		};
+
+		const count = () => {
+			const lis1 = document.querySelectorAll("#todoList li");
+			todoCount.innerText = lis1.length;
+
+			const lis2 = document.querySelectorAll("#doneList li");
+			doneCount.innerText = lis2.length;
+		};
+
+		const write = () => {
+			let dataTodo = {};
+			let dataDone = {};
+
+			const lis1 = document.querySelectorAll("#todoList li input");
+			const lis2 = document.querySelectorAll("#doneList li input");
+
+			for (const i in lis1) {
+				dataTodo[i] = lis1[i].value;
+			}
+
+			for (const i in lis2) {
+				dataDone[i] = lis2[i].value;
+			}
+
+			localStorage.setItem("todo", JSON.stringify(dataTodo));
+			localStorage.setItem("done", JSON.stringify(dataDone));
+		};
+
+		const clear = () => {
+			if (confirm("确定要删除所有吗，这将无法恢复")) {
+				localStorage.removeItem("todo");
+				localStorage.removeItem("done");
+				document.querySelector("#todoList").innerHTML = "";
+				document.querySelector("#doneList").innerHTML = "";
+			}
+		};
+
+		todoList.onclick = check;
+		doneList.onclick = check;
+
+		todoList.onchange = function (e) {
+			const element = e.target;
+			if (element.className == "list-content") {
+				write();
+			}
+		};
+		doneList.onchange = function (e) {
+			const element = e.target;
+			if (element.className == "list-content") {
+				write();
+			}
+		};
+
+		init();
+	</script>
+</html>
